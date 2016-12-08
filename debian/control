@@ -1,6 +1,7 @@
 Source: epics-aravisgige
 Section: libdevel
 Priority: extra
+Maintainer: Michael Davidsaver <mdavidsaver@gmail.com>
 Build-Depends: debhelper (>= 9), epics-debhelper (>= 8.14~),
                epics-dev,
                epics-adcore-dev,
