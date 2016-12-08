@@ -1,0 +1,32 @@
+Source: epics-aravisgige
+Section: libdevel
+Priority: extra
+Build-Depends: debhelper (>= 9), epics-debhelper (>= 8.14~),
+               epics-dev,
+               epics-adcore-dev,
+               libaravis0.6-dev,
+Standards-Version: 3.9.6
+Homepage: http://controls.diamond.ac.uk/downloads/support/aravisGigE/
+Vcs-Browser: https://github.com/areaDetector/aravisGigE
+Vcs-Git: https://github.com/areaDetector/aravisGigE.git
+
+Package: epics-aravisgige-dev
+Architecture: any
+Depends: libaravisgige2.1.20161125  (= ${binary:Version}),
+         ${shlibs:Depends}, ${misc:Depends},
+         ${epics:Depends},
+Suggests: aravis-tools, aravis-viewer,
+Description: areaDetector driver for GigE cameras w/ libaravis
+ An areaDetector driver for GigE video cameras
+ using the aravis library.
+ .
+ This package contains headers and libraries needed at build time.
+
+Package: libaravisgige2.1.20161125
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+Description: areaDetector driver for GigE cameras w/ libaravis
+ An areaDetector driver for GigE video cameras
+ using the aravis library.
+ .
+ This package contains runtime libraries
