@@ -1,0 +1,3 @@
+aravisGigEApp/src/makeDbAndEdl.py usr/share/epics-aravisgige-common/
+iocs/aravisGigEIOC/iocBoot/iocAravisGigE/st.cmd usr/lib/epics/iocBoot/iocAravisGigE/
+etc/genicam/*.xml usr/share/doc/epics-aravisgige-dev/xml/
