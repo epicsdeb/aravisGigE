@@ -1,0 +1,23 @@
+From: Michael Davidsaver <mdavidsaver@gmail.com>
+Date: Thu, 8 Dec 2016 15:34:58 -0500
+Subject: no private API
+
+apparently aravis 0.4 -> 0.6 moves arv_gv_device_set_packet_size
+to private API.
+---
+ aravisGigEApp/src/aravisCamera.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/aravisGigEApp/src/aravisCamera.cpp b/aravisGigEApp/src/aravisCamera.cpp
+index 053dca4..5b8200a 100644
+--- a/aravisGigEApp/src/aravisCamera.cpp
++++ b/aravisGigEApp/src/aravisCamera.cpp
+@@ -448,7 +448,7 @@ asynStatus aravisCamera::makeCameraObject() {
+         return asynError;
+     }
+     // Make standard size packets
+-    arv_gv_device_set_packet_size(ARV_GV_DEVICE(this->device), ARV_GV_DEVICE_GVSP_PACKET_SIZE_DEFAULT);
++//    arv_gv_device_set_packet_size(ARV_GV_DEVICE(this->device), ARV_GV_DEVICE_GVSP_PACKET_SIZE_DEFAULT);
+     // Uncomment this line to set jumbo packets
+ //    arv_gv_device_set_packet_size(ARV_GV_DEVICE(this->device), 9000);
+     /* Store genicam */

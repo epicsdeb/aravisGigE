@@ -1,0 +1,41 @@
+From: Michael Davidsaver <mdavidsaver@gmail.com>
+Date: Thu, 8 Dec 2016 15:35:27 -0500
+Subject: replace RELEASE/CONFIG_SITE
+
+---
+ configure/CONFIG_SITE | 8 --------
+ configure/RELEASE     | 8 ++------
+ 2 files changed, 2 insertions(+), 14 deletions(-)
+
+diff --git a/configure/CONFIG_SITE b/configure/CONFIG_SITE
+index 4df968f..225e178 100644
+--- a/configure/CONFIG_SITE
++++ b/configure/CONFIG_SITE
+@@ -32,11 +32,3 @@ CHECK_RELEASE = YES
+ #   take effect.
+ #IOCS_APPL_TOP = </IOC/path/to/application/top>
+ 
+-# Get settings from AREA_DETECTOR, so we only have to configure once for all detectors if we want to
+--include $(AREA_DETECTOR)/configure/CONFIG_SITE
+--include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH)
+--include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH).Common
+-ifdef T_A
+-  -include $(AREA_DETECTOR)/configure/CONFIG_SITE.Common.$(T_A)
+-  -include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH).$(T_A)
+-endif
+diff --git a/configure/RELEASE b/configure/RELEASE
+index 04a9e55..17e678d 100644
+--- a/configure/RELEASE
++++ b/configure/RELEASE
+@@ -2,9 +2,5 @@
+ # Run "gnumake clean uninstall install" in the application
+ # top directory each time this file is changed.
+ 
+--include $(TOP)/../configure/RELEASE_PATHS.local
+--include $(TOP)/../configure/RELEASE_PATHS.local.$(EPICS_HOST_ARCH)
+--include $(TOP)/../configure/RELEASE_LIBS.local
+--include $(TOP)/RELEASE.local
+--include $(TOP)/configure/RELEASE.local
+-
++ADCORE=$(EPICS_BASE)
++EPICS_BASE=/usr/lib/epics

@@ -1,0 +1,77 @@
+From: Michael Davidsaver <mdavidsaver@gmail.com>
+Date: Thu, 8 Dec 2016 15:33:47 -0500
+Subject: use system libaravis
+
+---
+ Makefile                                      |  2 --
+ aravisGigEApp/src/Makefile                    | 30 ++-------------------------
+ iocs/aravisGigEIOC/aravisGigEApp/src/Makefile |  2 +-
+ 3 files changed, 3 insertions(+), 31 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 0299d17..11567d8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,9 +2,7 @@
+ TOP = .
+ include $(TOP)/configure/CONFIG
+ DIRS := $(DIRS) configure
+-DIRS := $(DIRS) vendor
+ DIRS := $(DIRS) aravisGigEApp
+-aravisGigEApp_DEPEND_DIRS += vendor
+ ifeq ($(BUILD_IOCS), YES)
+ DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard iocs))
+ iocs_DEPEND_DIRS += aravisGigEApp
+diff --git a/aravisGigEApp/src/Makefile b/aravisGigEApp/src/Makefile
+index 2c2e5d1..8aed74d 100644
+--- a/aravisGigEApp/src/Makefile
++++ b/aravisGigEApp/src/Makefile
+@@ -18,33 +18,7 @@ aravisCamera_SRCS += aravisCamera.cpp
+ 
+ DBD += aravisCameraSupport.dbd
+ 
+-# If glib is not in a standard place, tell the build system where to look
+-ifneq ($(GLIBPREFIX),)
+-	USR_INCLUDES += -I$(GLIBPREFIX)/include/glib-2.0
+-    ifneq (,$(wildcard $(GLIBPREFIX)/lib64/glib-2.0))
+-	    # If these is a glibprefix/lib64/glib-2.0 dir then use this	    
+-		USR_INCLUDES += -I$(GLIBPREFIX)/lib64/glib-2.0/include
+-    	glib-2.0_DIR = $(GLIBPREFIX)/lib64
+-    else
+-        # Assume it is in the lib directory
+-		USR_INCLUDES += -I$(GLIBPREFIX)/lib/glib-2.0/include		
+-		glib-2.0_DIR = $(GLIBPREFIX)/lib
+-	endif
+-endif
+-
+-USR_INCLUDES +=  -I$(GLIB_INC1)
+-USR_INCLUDES +=  -I$(GLIB_INC2)
+-
+-# We need to link against aravis
+-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+-	USR_INCLUDES_Linux += -I$(TOP)/vendor/aravis-linux-x86_64/include/aravis-0.4
+-else ifeq (linux-x86, $(findstring linux-x86, $(T_A)))
+-	USR_INCLUDES_Linux += -I$(TOP)/vendor/aravis-linux-x86/include/aravis-0.4
+-endif
+-
+-USR_LIBS += glib-2.0
+-
+-# TODO: should pick this up from the vendor directory
+-USR_LIBS += aravis-0.4
++USR_CPPFLAGS += $(shell pkg-config --cflags glib-2.0 aravis-0.6)
++USR_LDFLAGS += $(shell pkg-config --libs glib-2.0 aravis-0.6)
+ 
+ include $(TOP)/configure/RULES
+diff --git a/iocs/aravisGigEIOC/aravisGigEApp/src/Makefile b/iocs/aravisGigEIOC/aravisGigEApp/src/Makefile
+index b805b1c..5513e56 100755
+--- a/iocs/aravisGigEIOC/aravisGigEApp/src/Makefile
++++ b/iocs/aravisGigEIOC/aravisGigEApp/src/Makefile
+@@ -16,7 +16,7 @@ PROD_SRCS += $(PROD_NAME)_registerRecordDeviceDriver.cpp $(PROD_NAME)Main.cpp
+ 
+ # Add locally compiled object code
+ PROD_LIBS += aravisCamera
+-PROD_LIBS += aravis-0.4
++PROD_SYS_LIBS += aravis-0.4
+ PROD_SYS_LIBS += giomm-2.4
+ 
+ include $(ADCORE)/ADApp/commonDriverMakefile
