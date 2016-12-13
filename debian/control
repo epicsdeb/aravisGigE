@@ -5,7 +5,7 @@ Maintainer: Michael Davidsaver <mdavidsaver@gmail.com>
 Build-Depends: debhelper (>= 9), epics-debhelper (>= 8.14~),
                epics-dev,
                epics-adcore-dev,
-               libaravis0.6-dev,
+               pkg-config, libxml2-dev, libglib2.0-dev, libaravis0.6-dev,
 Standards-Version: 3.9.6
 Homepage: http://controls.diamond.ac.uk/downloads/support/aravisGigE/
 Vcs-Browser: https://github.com/areaDetector/aravisGigE
