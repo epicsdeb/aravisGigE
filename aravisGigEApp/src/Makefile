@@ -19,6 +19,7 @@ aravisCamera_SRCS += aravisCamera.cpp
 DBD += aravisCameraSupport.dbd
 
 USR_CPPFLAGS += $(shell pkg-config --cflags glib-2.0 aravis-0.6)
-USR_LDFLAGS += $(shell pkg-config --libs glib-2.0 aravis-0.6)
+USR_LDFLAGS += $(shell pkg-config --libs-only-L glib-2.0 aravis-0.6)
+PROD_LDLIBS += $(shell pkg-config --libs-only-l glib-2.0 aravis-0.6)
 
 include $(TOP)/configure/RULES
