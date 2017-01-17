@@ -2,5 +2,13 @@
 # Run "gnumake clean uninstall install" in the application
 # top directory each time this file is changed.
 
-ADCORE=$(EPICS_BASE)
-EPICS_BASE=/usr/lib/epics
+#ADCORE=$(EPICS_BASE)
+#EPICS_BASE=/usr/lib/epics
+
+ASYN=/home/mdavidsaver/dpack/asyn/asyn
+BUSY=/home/mdavidsaver/dpack/busy/busy
+CALC=/home/mdavidsaver/dpack/calc/calc
+ADCORE=/home/mdavidsaver/dpack/ADCore/ADCore
+
+#EPICS_BASE=/usr/lib/epics
+EPICS_BASE=/home/mdavidsaver/work/epics/base-git

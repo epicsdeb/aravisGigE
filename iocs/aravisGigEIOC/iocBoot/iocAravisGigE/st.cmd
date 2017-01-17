@@ -23,13 +23,16 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db")
 
 #aravisCameraConfig("$(PORT)", "Prosilica-02-2131A-06202")
 #aravisCameraConfig("$(PORT)", "Point Grey Research-14273040")
-aravisCameraConfig("$(PORT)", "Photonic Science-V3")
+aravisCameraConfig("$(PORT)", "Baumer Optronic-0941853316")
+#aravisCameraConfig("$(PORT)", "The Imaging Source Europe GmbH-36510395")
+#aravisCameraConfig("$(PORT)", "Aravis-GV01")
 asynSetTraceMask("$(PORT)",0,0x21)
 dbLoadRecords("$(ARAVISGIGE)/db/aravisCamera.template", "P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
 #dbLoadRecords("$(ARAVISGIGE)/db/Prosilica_GC.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
 #dbLoadRecords("$(ARAVISGIGE)/db/PGR_Flea3.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
 #dbLoadRecords("$(ARAVISGIGE)/db/PSL_SCMOS.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
-dbLoadRecords("$(ARAVISGIGE)/db/PSL_FDI3.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
+#dbLoadRecords("$(ARAVISGIGE)/db/PSL_FDI3.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
+dbLoadRecords("$(ARAVISGIGE)/db/TIS_dmk_33GX174.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
 
 # Create a standard arrays plugin
 NDStdArraysConfigure("Image1", 5, 0, "$(PORT)", 0, 0)
