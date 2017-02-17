@@ -1,5 +1,5 @@
 From: Michael Davidsaver <mdavidsaver@gmail.com>
-Date: Sat, 31 Dec 2016 13:39:38 -0500
+Date: Fri, 17 Feb 2017 15:09:41 -0500
 Subject: rework
 
 continuous (re)connection model, no longer block for initial connect.
@@ -26,8 +26,8 @@ handle pixel format changes when no camera connected.
  aravisGigEApp/src/inspectcam.cpp          |  118 ++
  aravisGigEApp/src/testcam.cpp             |  244 +++
  aravisGigEApp/src/testhelper.h            |   88 +
- aravisGigEApp/src/testimage.cpp           |  251 +++
- 10 files changed, 2658 insertions(+), 2285 deletions(-)
+ aravisGigEApp/src/testimage.cpp           |  252 +++
+ 10 files changed, 2659 insertions(+), 2285 deletions(-)
  create mode 100644 aravisGigEApp/src/adhelper.h
  create mode 100644 aravisGigEApp/src/ghelper.h
  create mode 100644 aravisGigEApp/src/inspectcam.cpp
@@ -5351,10 +5351,10 @@ index 0000000..e10f968
 +#endif // TESTHELPER_H
 diff --git a/aravisGigEApp/src/testimage.cpp b/aravisGigEApp/src/testimage.cpp
 new file mode 100644
-index 0000000..f69b422
+index 0000000..60b753b
 --- /dev/null
 +++ b/aravisGigEApp/src/testimage.cpp
-@@ -0,0 +1,251 @@
+@@ -0,0 +1,252 @@
 +#include <string>
 +#include <vector>
 +#include <sstream>
@@ -5372,6 +5372,7 @@ index 0000000..f69b422
 +#include <epicsExport.h>
 +#include <epicsThread.h>
 +#include <initHooks.h>
++#include <epicsGuard.h>
 +#include <asynDriver.h>
 +#include <asynPortClient.h>
 +#include <shareLib.h>
