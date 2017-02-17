@@ -1,0 +1,43 @@
+From: Michael Davidsaver <mdavidsaver@gmail.com>
+Date: Mon, 19 Dec 2016 15:07:28 -0500
+Subject: Check channel privilege during setup
+
+Give a nicer error message than the later stream create
+failure which would result.
+---
+ aravisGigEApp/src/aravisCamera.cpp | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/aravisGigEApp/src/aravisCamera.cpp b/aravisGigEApp/src/aravisCamera.cpp
+index 5b8200a..d24d7b5 100644
+--- a/aravisGigEApp/src/aravisCamera.cpp
++++ b/aravisGigEApp/src/aravisCamera.cpp
+@@ -447,6 +447,28 @@ asynStatus aravisCamera::makeCameraObject() {
+                     driverName, functionName);
+         return asynError;
+     }
++
++    guint32 regval = -1;
++    asynStatus status = asynError;
++    if (arv_device_read_register(this->device, ARV_GVBS_CONTROL_CHANNEL_PRIVILEGE_OFFSET, &regval, NULL)) {
++        if (regval&ARV_GVBS_CONTROL_CHANNEL_PRIVILEGE_CONTROL) {
++            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW,
++                        "%s:%s: In control of camera.\n",
++                        driverName, functionName);
++            printf("aravisCamera: I am in control\n");
++            status = asynSuccess;
++        } else {
++            asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
++                        "%s:%s: Another client has control of this camera.\n",
++                        driverName, functionName);
++        }
++    } else {
++        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
++                    "%s:%s: Unable to read camera CONTROL_CHANNEL register.  Device not accessible.\n",
++                    driverName, functionName);
++    }
++    if (status) return status;
++
+     // Make standard size packets
+ //    arv_gv_device_set_packet_size(ARV_GV_DEVICE(this->device), ARV_GV_DEVICE_GVSP_PACKET_SIZE_DEFAULT);
+     // Uncomment this line to set jumbo packets

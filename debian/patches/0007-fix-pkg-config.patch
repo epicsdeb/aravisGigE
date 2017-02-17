@@ -1,0 +1,21 @@
+From: Michael Davidsaver <mdavidsaver@gmail.com>
+Date: Tue, 27 Dec 2016 17:01:17 -0500
+Subject: fix pkg-config
+
+---
+ aravisGigEApp/src/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/aravisGigEApp/src/Makefile b/aravisGigEApp/src/Makefile
+index 8aed74d..85b6fa4 100644
+--- a/aravisGigEApp/src/Makefile
++++ b/aravisGigEApp/src/Makefile
+@@ -19,6 +19,7 @@ aravisCamera_SRCS += aravisCamera.cpp
+ DBD += aravisCameraSupport.dbd
+ 
+ USR_CPPFLAGS += $(shell pkg-config --cflags glib-2.0 aravis-0.6)
+-USR_LDFLAGS += $(shell pkg-config --libs glib-2.0 aravis-0.6)
++USR_LDFLAGS += $(shell pkg-config --libs-only-L glib-2.0 aravis-0.6)
++PROD_LDLIBS += $(shell pkg-config --libs-only-l glib-2.0 aravis-0.6)
+ 
+ include $(TOP)/configure/RULES
