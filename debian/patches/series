@@ -7,3 +7,4 @@
 0007-fix-pkg-config.patch
 0008-Check-channel-privilege-during-setup.patch
 0009-rework.patch
+0010-fix-so-deps.patch
