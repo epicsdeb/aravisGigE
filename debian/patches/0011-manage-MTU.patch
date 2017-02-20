@@ -1,0 +1,24 @@
+From: Michael Davidsaver <mdavidsaver@gmail.com>
+Date: Mon, 20 Feb 2017 16:05:23 -0500
+Subject: manage MTU
+
+---
+ aravisGigEApp/Db/aravisCamera.template | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/aravisGigEApp/Db/aravisCamera.template b/aravisGigEApp/Db/aravisCamera.template
+index 7a6d02c..797c928 100644
+--- a/aravisGigEApp/Db/aravisCamera.template
++++ b/aravisGigEApp/Db/aravisCamera.template
+@@ -261,3 +261,11 @@ record(longin, "$(P)$(R)NumExposuresCounter_RBV") {
+ record(mbbo, "$(P)$(R)TriggerMode") {
+   field(DISA, "1")
+ }
++
++record(longout, "$(P)$(R)MTU") {
++  field(DTYP, "asynInt32")
++  field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))ARVI_GevSCPSPacketSize")
++  field(VAL, "1500")
++  field(PINI, "YES")
++  info(autosaveFields, "DESC HHSV HIHI HIGH HSV LLSV LOLO LOW LSV PINI VAL")
++}
