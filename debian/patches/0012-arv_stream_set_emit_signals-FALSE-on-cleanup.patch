@@ -1,0 +1,25 @@
+From: Michael Davidsaver <mdavidsaver@gmail.com>
+Date: Wed, 22 Mar 2017 15:47:37 -0400
+Subject: arv_stream_set_emit_signals(, FALSE) on cleanup
+
+Needed w/ aravis >0.5.7 to avoid a race when unref
+a stream while frames are being received.
+---
+ aravisGigEApp/src/aravisCamera.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/aravisGigEApp/src/aravisCamera.cpp b/aravisGigEApp/src/aravisCamera.cpp
+index d20f306..8467461 100644
+--- a/aravisGigEApp/src/aravisCamera.cpp
++++ b/aravisGigEApp/src/aravisCamera.cpp
+@@ -1184,6 +1184,10 @@ void aravisCamera::doCleanup(Guard &G)
+     {
+         UnGuard U(G);
+         epicsGuard<epicsMutex> IO(arvLock);
++
++        if(strm)
++            arv_stream_set_emit_signals(strm.get(), FALSE);
++
+         if(cam)
+             arv_camera_stop_acquisition(cam); // cmd: AcquisitionStop
+ 

@@ -9,3 +9,4 @@
 0009-rework.patch
 0010-fix-so-deps.patch
 0011-manage-MTU.patch
+0012-arv_stream_set_emit_signals-FALSE-on-cleanup.patch
