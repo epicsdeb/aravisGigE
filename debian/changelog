@@ -1,4 +1,4 @@
-epics-aravisgige (2.1.20161125-1) UNRELEASED; urgency=medium
+epics-aravisgige (2.1.20161125-1) unstable; urgency=medium
 
   * Initial release.
   * Snapshot of rev. b31f718df0c863884d9d2d4db0ad4cd48f38a65d
@@ -6,4 +6,4 @@ epics-aravisgige (2.1.20161125-1) UNRELEASED; urgency=medium
   * deb source/
   * great big connection handling patch
 
- -- Michael Davidsaver <mdavidsaver@gmail.com>  Thu, 08 Dec 2016 15:31:24 -0500
+ -- Michael Davidsaver <mdavidsaver@gmail.com>  Wed, 22 Mar 2017 17:52:28 -0400
